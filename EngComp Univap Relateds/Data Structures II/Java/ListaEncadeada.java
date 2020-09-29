@@ -4,29 +4,20 @@ class ListaEncadeada {
     public Node primeiro;
     public Node ultimo;
 
-
-    public boolean posicaoExistenteEstaOcupada(int posicao) throws Exception {
-        if (this.posicaoOcupada(posicao)) {
-            Object currentElement = pega(posicao);
-            return (currentElement != null);
-        } else {
-            throw new Exception("Posicao nao existente");
-        }
-    }
-
     public boolean posicaoOcupada(int posicao) {
         return ((posicao >= 0) && (posicao < this.total));
     }
 
-    public Object pega(int posicao) throws Exception {
+    public Object pega(int posicao) {
         if (posicao > this.total || posicao < 0) {
-            throw new Exception("Posicao invalida ou inexistente");
+            System.out.println("Posicao invalida ou inexistente");
+            return null;
         }
 
         Node node = this.primeiro;
         int posicaoAtual = 0;
 
-        for(int i=0; i<=posicao; i++) {
+        for(int i=0; i<posicao; i++) {
             node = node.getNext();
             posicaoAtual++;
         }
@@ -34,15 +25,16 @@ class ListaEncadeada {
         return node.getItem();
     }
 
-    public Node pegaCelula(int posicao) throws Exception {
+    public Node pegaCelula(int posicao) {
         if (posicao > this.total || posicao < 0) {
-            throw new Exception("Posicao invalida ou inexistente");
+            System.out.println("Posicao invalida ou inexistente");
+            return null;
         }
 
         Node node = this.primeiro;
         int posicaoAtual = 0;
 
-        for(int i=0; i<=posicao+1; i++) {
+        for(int i=0; i<posicao+1; i++) {
             node = node.getNext();
             posicaoAtual++;
         }
@@ -63,9 +55,10 @@ class ListaEncadeada {
         }
     }
 
-    public void remove(int posicao) throws Exception {
+    public void remove(int posicao) {
         if (posicao > this.total || posicao < 0) {
-            throw new Exception("Posicao invalida ou inexistente");
+            System.out.println("Posicao invalida ou inexistente");
+            return;
         }
 
         if (posicao == 1) {
@@ -74,7 +67,7 @@ class ListaEncadeada {
             Node node = this.primeiro;
             int count = 0;
 
-            for (int i=0; i<=posicao-1; i++) {
+            for (int i=0; i<posicao; i++) {
                 node = node.getNext();
                 count++;
             }
@@ -102,22 +95,31 @@ class ListaEncadeada {
     }
     
     public void adiciona(Object item) {
+
+        System.out.println("Adicionando elemento " + item + " na lista");
+
         if (this.total == 0) {
             Node node = new Node(item);
             this.primeiro = node;
+            this.ultimo = node;
         } else {
             Node newNode = new Node(item);
             Node node = this.ultimo;
             node.setNext(newNode);
             this.ultimo = newNode;
         }
+        
+        this.total++;
     }
 
-    public void removeNumerosNaoPrimos() throws Exception {
+    public void removeNumerosNaoPrimos() {
         Object itemAtual = null;
+        
+        System.out.println(this.total);
 
-        for (int i=0; i<=this.total; i++) {
+        for (int i=0; i<this.total; i++) {
             itemAtual = pega(i);
+            System.out.println(itemAtual);
             if (!ehNumeroPrimo(itemAtual)) {
                 System.out.println("Removendo "+i+"º item da lista, nao e numero primo");
                 remove(i);
@@ -125,10 +127,10 @@ class ListaEncadeada {
         }
     }
 
-    public Object busca(Object itemDesejado) throws Exception {
+    public Object busca(Object itemDesejado) {
         Object itemAtual = null;
 
-        for (int i=0; i<=this.total; i++) {
+        for (int i=0; i<this.total; i++) {
             itemAtual = pega(i);
             if (itemAtual == itemDesejado) {
                 System.out.println("Elemento existente na posicao "+i+" da lista");
@@ -142,7 +144,7 @@ class ListaEncadeada {
 
     public ListaEncadeada copiarLista(ListaEncadeada listaDeOrigem) {
         ListaEncadeada listaCopiada = new ListaEncadeada();
-        for(int i=0; i<=listaDeOrigem.total; i++) {
+        for(int i=0; i<listaDeOrigem.total; i++) {
             listaCopiada.adiciona(listaDeOrigem.pega(1));
         }
         return listaCopiada;
@@ -153,12 +155,12 @@ class ListaEncadeada {
         ListaEncadeada listaMesclada = new ListaEncadeada();
         int totalListaMesclada = lista1.total + lista2.total;
 
-        for(int i=0; i<=lista1.total; i++) {
+        for(int i=0; i<lista1.total; i++) {
             Object conteudoLista1 = lista1.pega(i);
             listaMesclada.adiciona(conteudoLista1);
         }
 
-        for(int j=lista1.total; j<=totalListaMesclada; j++) {
+        for(int j=lista1.total; j<totalListaMesclada; j++) {
             Object conteudoLista2 = lista2.pega(j);
             listaMesclada.adiciona(conteudoLista2);
         }
@@ -171,6 +173,7 @@ class ListaEncadeada {
         list.adiciona(2);
         list.adiciona(13);
         list.adiciona(4);
+        list.adiciona(10);
         list.adiciona(10);
         list.removeNumerosNaoPrimos();
     }
