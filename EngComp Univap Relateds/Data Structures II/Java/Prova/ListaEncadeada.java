@@ -154,7 +154,7 @@ class ListaEncadeada {
         double n2 = notasCandidato.getNota2();
         double n3 = notasCandidato.getNota3();
 
-        double variancia = ((Math.pow((n1 - media), 2)/3) + (Math.pow((n2 - media), 2)/3) + (Math.pow((n3 - media), 2)/3));
+        double variancia = ((Math.pow((n1 - media), 2)/2) + (Math.pow((n2 - media), 2)/2) + (Math.pow((n3 - media), 2)/2));
 
         return variancia;
     }
